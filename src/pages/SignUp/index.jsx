@@ -1,74 +1,79 @@
+import { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../services/firebaseConnection';
 import './styles.css';
+import { useNavigate } from 'react-router-dom'
+import ButtonGlobal from '../../components/ButtonGlobal';
+
+
 
 export default function Signup() {
 
-    return (
-        <div className="container" >
-            <form className="formulario" >
-                <h1 className='title'>Complete seu cadastro:</h1>
-                <label htmlFor="Nome">Nome</label>
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
+
+    function navigateTo() {
+        navigate('/signin', { replace: true })
+    }
+
+    async function handleSignUp(e){
+        e.preventDefault();
+
+        await createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            navigate('/registered', {replace: true})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+
+
+return (
+    <div className="container" >
+        <h1 className='title'>Preencha os campos abaixo para criar sua conta!</h1>
+        <div className="form_container">
+            <form className='form__children' onSubmit={handleSignUp}>
+                <label className='etiqueta' htmlFor='nome' >Nome</label>
                 <input
+                    className='input__form'
                     placeholder='Digite seu nome'
                     type='text'
                     minLength={3}
-                    required
+                    required={true}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                 />
 
-                <label htmlFor="Email">Email</label>
+                <label htmlFor="Email" className='etiqueta'>Email</label>
                 <input
-                    placeholder='exemplo@exemplo.com'
+                    className='input__form'
+                    placeholder='SeuMelhorEmail@exemplo.com'
                     type='email'
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <label htmlFor="senha">Senha</label>
+                <label htmlFor="senha" className='etiqueta'>Senha</label>
                 <input
+                    className='input__form'
                     placeholder='***********'
                     type='password'
                     minLength={3}
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
-                <label htmlFor="Data de nascimento">Data de nascimento</label>
-                <input
-                    placeholder='05/03/2006'
-                    type='date'
-                    required
-                />
-                <label htmlFor="CPF">CPF</label>
-                <input
-                    placeholder='12345678911'
-                    type='text'
-                    maxLength={11}
-                    required
-                />
-                <label htmlFor="CEP">CEP</label>
-                <input
-                    placeholder='12345-678'
-                    type='text'
-                    maxLength={8}
-                    required
-                />
-                <label htmlFor="Logradouro">Logradouro</label>
-                <input
-                    placeholder='Rua do infinito'
-                    type='text'
-                    required
-                />
-                <label htmlFor="Cidade">Cidade</label>
-                <input
-                    placeholder='Rio de Janeiro'
-                    type='text'
-                    required
-                />
-                <label htmlFor="Estado">Estado</label>
-                <input
-                    placeholder='RJ'
-                    type='text'
-                    required
-                />
-                <button> Cadastrar </button>
-            </form>
+                <ButtonGlobal title="Cadastrar"/>
+                <button  className="btn_normal" onClick={navigateTo}>Já possui uma conta? Entrar</button>
 
+            </form>
         </div>
-    )
-}
+
+    </div>
+)}
