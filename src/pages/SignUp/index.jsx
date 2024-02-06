@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useState, useRef } from 'react';
+import { AuthErrorCodes, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConnection';
 import './styles.css';
 import { useNavigate } from 'react-router-dom'
@@ -10,28 +10,15 @@ import { emailValidate, passwordValidate } from '../../utils/regex';
 
 export default function Signup() {
 
+    const emailRef = useRef();
+    const codeErrors = () => AuthErrorCodes();
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const [errEmail, setErrEmail] = useState(false);
-    const [errPassword, setErrPassword] = useState(false);
 
-    function validate() {
-        if (!emailValidate.test(email)) {
-            setErrEmail(true)
-        } else {
-            setErrEmail(false);
-        }
-
-        if (!passwordValidate.test(password)) {
-            setErrPassword(true)            
-        } else {
-            setErrPassword(false);
-
-        }
-    }
 
     function navigateTo() {
         navigate('/signin', { replace: true })
@@ -45,9 +32,13 @@ export default function Signup() {
                 navigate('/registered', { replace: true })
             })
             .catch((err) => {
-                console.log(err)
-                !handleSignUp();
-                alert('Por favor preencha os campos de acordo com o padrão solicitado!')
+                if (AuthErrorCodes.EMAIL_EXISTS) {
+                    alert('Este email já está cadastrado!')
+                    setEmail("");
+                    emailRef.current.focus();
+
+                }
+
             })
     }
 
@@ -59,11 +50,12 @@ export default function Signup() {
             <div className="container" >
                 <h1 className='title'>Preencha os campos abaixo para criar sua conta!</h1>
                 <div className="form_container">
-                    <form  className='form__children' onSubmit={handleSignUp}>
+                    <form className='form__children' onSubmit={handleSignUp}>
                         <label className='etiqueta' htmlFor='nome' >Nome</label>
                         <input
                             className='input__form'
-                            placeholder='Digite seu nome'                            
+                            placeholder='Digite seu nome'
+                            title='Meu Nome'
                             type='text'
                             minLength={3}
                             required
@@ -76,37 +68,27 @@ export default function Signup() {
                             className='input__form'
                             placeholder='SeuMelhorEmail@exemplo.com'
                             type='email'
-                            onBlur={validate}
+                            title='exemplo@exemplo.com'
                             pattern={emailValidate}
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            ref={emailRef}
                         />
-
-                        {errEmail &&
-                            <p className='error_msg'>Por favor digite um email válido!</p>
-                        }
 
                         <label htmlFor="senha" className='etiqueta'>Senha</label>
                         <input
                             className='input__form'
                             placeholder='***********'
                             type='password'
-                            onBlur={validate}
-                            pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/"
                             title='A senha deve conter entre 6 a 12 caracteres, deve conter pelo menos uma letra Maiúscula, um Número e um Símbolo[!@#$%¨&*()-+=.] e não poderá ter " ".'
                             minLength={6}
-                            maxLength={12}                            
+                            maxLength={12}
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
 
-                        {errPassword &&
-                            <span className='error_msg'>
-                                A senha deve conter entre 6 a 12 caracteres, deve conter pelo menos uma letra Maiúscula, um Número e um Símbolo[!@#$%¨&*()-+=.].
-                            </span>
-                        }
 
                         <div class="formulario__termos">
                             <input name="termos" class="termos__input" type="checkbox" required />
