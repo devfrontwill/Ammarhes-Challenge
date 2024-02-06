@@ -7,10 +7,11 @@
 
 .title {
     margin: 1em 0;
-    font-weight: 600;
+    font-weight: 00;
     font-size: 28px;
     line-height: 34px;
     color: var(--azul-escuro);
+    font-family: monospace;
 }
 
 .form_container {
