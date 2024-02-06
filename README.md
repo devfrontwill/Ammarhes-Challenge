@@ -18,13 +18,18 @@
 
 ## 💻 Sobre o projeto
 
-Este projeto no qual denominei de Ammarhes Challenge, consiste em criar um sistema de autenticação de usuários, onde o mesmo possa realizar o seu cadastro com um email válido e seguindo um padrão para criação de senha determinada por este Dev que vos escreve.
-Ao criar a conta o usuario deve ser direcionado para uma tela de Login para acessar sua recem conta criada;
-Caso o usuario tente cadastrar um email já cadastrado, ele receberá uma mensagem o informando do erro e em seguida o campo será esvaziado para que seja digitado um email não cadastrado no sistema;
+Este projeto no qual denominei de Ammarhes Challenge, consiste em criar um sistema de autenticação de usuários, onde o mesmo possa realizar o seu cadastro com um email válido e seguindo um padrão para criação de senha determinada por este Dev que vos escreve.<br><br>
+Ao criar a conta o usuario deve ser direcionado para uma tela de Login para acessar sua recem conta criada;<br><br>
+Caso o usuario tente cadastrar um email já cadastrado, ele receberá uma mensagem o informando do erro e em seguida o campo será esvaziado para que seja digitado um email não cadastrado no sistema; 
+<br><br>
 Também foram feitas algumas validações por este Dev que vos escreve ao tentar cadastrar deverão seguir o padrao definido por Me;
+<br><br>
 Feito isso o usuario irá inserir seus dados cadastrados e em caso de sucesso ao acessar sua conta, deverá ir para uma tela de usuario Logado;
+<br><br>
 Na tela de usuario logado eu resolvi adicionar um botao para Logout funcional, além de mover o usuario para a tela de Login, o mesmo tem suas credenciais deslogadas do banco de dados;
+<br><br>
 Em caso de o usuario digitar email e/ou senha diferente e/ou inexistentes das cadastradas, o mesmo receberá uma mensagem o informando de tal erro e solicitando para que seja feito o preenchimento correto dos campos;
+<br><br>
 Há também um pagina de Erro com botão para Home, caso o usuario digite o endereço na barra de navegação de forma erronea;
 <br><br><br><br><br><br><br>
 
