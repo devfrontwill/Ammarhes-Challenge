@@ -1,17 +1,21 @@
 import { useNavigate } from 'react-router-dom';
+import Banner from '../../components/Banner';
 
-export default function Registered(){
+export default function Registered() {
 
     const navigate = useNavigate();
 
-    function navigateTo(){
-        navigate('/signin', {replace: true})
+    function navigateTo() {
+        navigate('/signin', { replace: true })
     }
 
-    return(
-        <div>
-            <h1>Conta criada com sucesso FAZER LOGIN</h1>
-            <button type='submit' onClick={navigateTo} >Fazer login</button>
-        </div>
+    return (
+        <>
+            <Banner />
+            <div className='container' >
+                <h1 className='title' >Conta criada com sucesso.</h1>
+                <button className='btn_generic' type='submit' onClick={navigateTo} >Fazer login</button>
+            </div>
+        </>
     )
 }

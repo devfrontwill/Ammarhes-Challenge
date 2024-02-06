@@ -1,22 +1,27 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../../services/firebaseConnection';
 import { useNavigate } from 'react-router-dom';
+import Banner from '../../components/Banner';
 
-export default function Logged(){
+export default function Logged() {
 
     const navigate = useNavigate();
 
-    async function Logout(){
+    async function Logout() {
         await signOut(auth)
-        .then(() => {
-            navigate('/signin', {replace: true} )
-        })
+            .then(() => {
+                navigate('/signin', { replace: true })
+                alert('Usuario deslogado com sucesso!');
+            })
     }
 
-    return(
-        <div>
-            <h1> Seja bem vindo à Ammarhes Challenge Usuario </h1>
-            <button type='submit' onClick={Logout} >Sair</button>
-        </div>
+    return (
+        <>
+            <Banner />
+            <div className='container' >
+                <h1 className='title' > Seja bem vindo à Ammarhes Challenge  </h1>
+                <button  className='btn_generic' type='submit' onClick={Logout} >Sair</button>
+            </div>
+        </>
     )
 }

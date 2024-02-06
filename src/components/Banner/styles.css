@@ -1,0 +1,33 @@
+.banner {
+    background-image: url("../../assets/banner-formulario.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.banner__titulo {
+    font-weight: 600;
+    color: var(--branco);
+    font-size: 32px;
+    line-height: 39px;
+    width: 40%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 900px) {
+    .banner {
+        width: 109vw;
+        height: 27vh;
+    }
+
+    .banner__titulo {
+        font-size: 25px;
+        line-height: 31px;
+    }
+}

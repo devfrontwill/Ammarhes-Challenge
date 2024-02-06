@@ -41,6 +41,10 @@
     margin-bottom: 1em;
 }
 
+.error_msg{
+    color: #ff0000;
+}
+
 .btn_normal {
     margin: -1em auto;
     display: block;
