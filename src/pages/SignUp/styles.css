@@ -56,9 +56,23 @@
     font-weight: bold;
 }
 
+.formulario__termos {
+    display: flex;
+    flex-direction: row;    
+}
+
+.termos__input {
+    margin-right: 1.5em;
+    width: 15%;
+}
+
+.termos__texto {
+    margin-top: 2rem;
+}
+
 @media screen and (max-width: 900px){
     .container{
-        margin: -1em auto;
+        margin: 1em auto;
         width: 100%;
     }
 

@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConnection';
 import { useNavigate } from 'react-router-dom';
 import './styles.css';
+import ButtonGlobal from '../../components/ButtonGlobal';
 
 export default function Signin() {
 
@@ -11,8 +12,8 @@ export default function Signin() {
 
     const navigate = useNavigate();
 
-    function navigateTo(){
-        navigate('/', {replace: true})
+    function navigateTo() {
+        navigate('/', { replace: true })
     }
 
     async function handleSignIn(e) {
@@ -20,21 +21,13 @@ export default function Signin() {
 
         await signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                navigate('/logged', {replace: true} )                
+                navigate('/logged', { replace: true })
             })
             .catch((error) => {
-
-                if (error.code === 'auth/invalid-password') {
-                    alert("Senha inválida");
-
-                } else if (error.code === 'auth/invalid-email') {
-                    alert("Email inválido!");
-
-                } else if (error.code === 'auth/user-not-found') {
-                    alert("Este usuario não existe!")
-                }
+                console.log(error);                          
+                alert('Usuario e / ou senha inválidos, por favor tente novamente!');
                 setEmail('');
-                setPassword('');
+                setPassword('')
             })
     }
 
@@ -42,20 +35,22 @@ export default function Signin() {
     return (
         <div className="container" >
             <h1 className='title'>Acesse sua conta</h1>
-            <div className="formulario">
-                <form className='form' onSubmit={handleSignIn} >
-                    <label htmlFor="Email">Email</label>
+            <div className="form_container">
+                <form className='form__children' onSubmit={handleSignIn} >
+                    <label htmlFor="Email" className='etiqueta'>Email</label>
                     <input
-                        placeholder='exemplo@exemplo.com'
+                        className='input__form'
+                        placeholder='Seu email'
                         type='email'
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
 
-                    <label htmlFor="senha">Senha</label>
+                    <label htmlFor="senha" className='etiqueta'>Senha</label>
                     <input
-                        placeholder='***********'
+                        className='input__form'
+                        placeholder='Sua senha'
                         type='password'
                         minLength={3}
                         required
@@ -63,8 +58,9 @@ export default function Signin() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <button type='submit'> Entrar </button>
-                    <button onClick={navigateTo} >Não possui um cadastro? Cadastrar-se</button>
+                    <ButtonGlobal title="Entrar" />
+                    <button className='btn_normal'>Esqueci minha senha</button>
+                    <button className='btn_normal' onClick={navigateTo} >Não possui uma conta? Cadastrar-se</button>
 
                 </form>
             </div>
